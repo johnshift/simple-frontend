@@ -1,4 +1,5 @@
-# React TS Boilerplate
+# Frontend
+React UI for SpringBoot backend
 - Typescript
 - Strict ESLint
 - Zustand
