@@ -2,11 +2,10 @@ import React from 'react';
 
 // ui
 import {
-  Center, Flex, Heading, Icon,
-  IconButton, Spinner, Table, Tbody, Td, Th,
+  Center, Flex, Heading,
+  Spinner, Table, Tbody, Td, Th,
   Thead, Tr, useToast,
 } from '@chakra-ui/react';
-import { FaEdit } from 'react-icons/fa';
 
 import { useQuery } from 'react-query';
 
@@ -15,6 +14,7 @@ import { useStore } from '../../store';
 import { apiGetAllTodo } from './api';
 
 import { DeleteBtn } from './DeleteBtn';
+import { UpdateBtn } from './UpdateBtn';
 
 const TodoList = (): JSX.Element => {
   const { todoList, setTodoList } = useStore();
@@ -69,15 +69,7 @@ const TodoList = (): JSX.Element => {
                     <Td>{todo.targetDate}</Td>
                     <Td>
 
-                      <IconButton
-                        aria-label="update-todo"
-                        size="xs"
-                        colorScheme="green"
-                        variant="solid"
-                        isRound
-                        icon={<Icon as={FaEdit} />}
-                        mr={5}
-                      />
+                      <UpdateBtn todo={todo} />
 
                       <DeleteBtn todoID={todo.id} />
                     </Td>
