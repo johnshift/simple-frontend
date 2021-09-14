@@ -5,6 +5,9 @@ import {
   Route,
 } from 'react-router-dom';
 
+// query
+import { QueryClientProvider, QueryClient } from 'react-query';
+
 // components
 import Navbar from './components/navbar/Navbar';
 
@@ -13,8 +16,9 @@ import Home from './pages/home/Home';
 import NotFound from './pages/notfound/NotFound';
 import CreateTodo from './pages/create-todo/CreateTodo';
 
+const queryClient = new QueryClient();
 const App = (): JSX.Element => (
-  <div className="App">
+  <QueryClientProvider client={queryClient}>
     <Router>
       <Navbar />
       <Switch>
@@ -29,7 +33,7 @@ const App = (): JSX.Element => (
         </Route>
       </Switch>
     </Router>
-  </div>
+  </QueryClientProvider>
 );
 
 export default App;

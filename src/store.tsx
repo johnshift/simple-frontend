@@ -6,4 +6,5 @@ export type AppState = TodoSlice;
 
 export const useStore = create<AppState>((set) => ({
   ...createTodoSlice(set),
+  // ...etc(get, set),
 }));

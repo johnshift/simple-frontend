@@ -14,26 +14,8 @@ export interface TodoSlice {
 }
 
 export const createTodoSlice = (set: SetState<AppState>): TodoSlice => ({
-
-  // hardcoded init state
-  todoList: [
-    {
-      id: 0, description: 'desc 0', isDone: false, targetDate: (new Date()).toISOString(),
-    },
-    {
-      id: 1, description: 'desc 1', isDone: false, targetDate: (new Date()).toISOString(),
-    },
-    {
-      id: 2, description: 'desc 2', isDone: false, targetDate: (new Date()).toISOString(),
-    },
-    {
-      id: 3, description: 'desc 3', isDone: false, targetDate: (new Date()).toISOString(),
-    },
-  ],
+  todoList: [],
   currentId: 0,
-
-  // todoList: [],
-  // currentId: 0,
   setTodoList: (todoList) => {
     set(() => ({ todoList }));
   },

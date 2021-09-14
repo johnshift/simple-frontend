@@ -4,21 +4,49 @@ import React from 'react';
 import {
   Flex, Center, IconButton, Icon,
   Table, Thead, Tbody, Tr, Th, Td,
+  Heading, useToast, Spinner,
 } from '@chakra-ui/react';
 import { FaEdit, FaTimes } from 'react-icons/fa';
 
-// types
+import { useQuery } from 'react-query';
 import { Todo } from './types';
-
-// state
 import { useStore } from '../../store';
 
+import { fetchTodoList } from './api';
+
 const TodoList = (): JSX.Element => {
-  const { todoList } = useStore();
+  const { todoList, setTodoList } = useStore();
+
+  const toast = useToast();
+
+  const username = 'johnshift';
+
+  const { status } = useQuery<Todo[], Error>(
+    ['allTodoList', username],
+    () => fetchTodoList(username),
+    {
+      enabled: !!username, // only run when username is available,
+      retry: 2,
+      retryDelay: 800,
+      onSuccess: (data) => {
+        setTodoList(data);
+      },
+      onError: () => {
+        toast({
+          title: 'Failed to fetch todo list',
+          status: 'error',
+          duration: 2000,
+        });
+      },
+    },
+  );
 
   return (
-
     <Flex align="center" justify="center" h="100vh">
+      { status === 'loading' && <Spinner size="xl" thickness="3px" speed="0.4s" color="red.500" />}
+      {status === 'error' && <Heading size="3xl">Something went wrong :(</Heading>}
+      {status === 'success'
+      && (
       <Center>
         <Table>
           <Thead>
@@ -63,6 +91,7 @@ const TodoList = (): JSX.Element => {
           </Tbody>
         </Table>
       </Center>
+      )}
     </Flex>
   );
 };
